@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PROCFLOW — Akademia Operacji Magazynowych</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════════════
+   RESET & VARIABLES
+══════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:        #FDFAF5;
+  --bg2:       #F5F0E8;
+  --bg3:       #EDE8DF;
+  --card:      #FFFFFF;
+  --gold:      #C8850A;
+  --gold-d:    #A36A06;
+  --gold-l:    #F0A830;
+  --gold-bg:   #FEF3DC;
+  --gold-bdr:  #F5D080;
+  --copper:    #B5501A;
+  --text:      #1C1208;
+  --text-2:    #4A3F2E;
+  --text-3:    #7A6E5E;
+  --text-4:    #A89F92;
+  --border:    #E4DDD0;
+  --border-2:  #D4C8B4;
+  --green:     #1E6B45;
+  --green-bg:  #EDF7F2;
+  --red:       #B91C1C;
+  --nav-h:     64px;
+  --r:         12px;
+  --r-lg:      18px;
+  --shadow:    0 2px 16px rgba(28,18,8,0.08);
+  --shadow-lg: 0 8px 40px rgba(28,18,8,0.12);
+  --font-d:    'Playfair Display',Georgia,serif;
+  --font-b:    'Plus Jakarta Sans',system-ui,sans-serif;
+  --font-m:    'DM Mono','Courier New',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--font-b)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--gold-bdr);border-radius:3px}
+
+/* ══════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════ */
+.container{width:100%;max-width:1080px;margin:0 auto;padding:0 20px}
+.section{padding:72px 0}
+.section--alt{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.section--dark{background:#1C1208;color:#F5F0E8}
+.section-head{text-align:center;margin-bottom:52px}
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.section-title{font-family:var(--font-d);font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:700;line-height:1.15;color:var(--text);margin-bottom:12px}
+.section-sub{font-size:15px;color:var(--text-3);max-width:560px;margin:0 auto;line-height:1.75}
+.text-gold{color:var(--gold)}
+.text-em{font-style:italic;color:var(--gold)}
+
+/* ══════════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:var(--r);font-weight:700;font-size:14px;padding:12px 24px;transition:all .2s ease;white-space:nowrap;cursor:pointer}
+.btn--gold{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#fff;box-shadow:0 4px 16px rgba(200,133,10,0.25)}
+.btn--gold:hover{box-shadow:0 6px 24px rgba(200,133,10,0.35);transform:translateY(-1px)}
+.btn--outline{background:transparent;border:2px solid var(--gold);color:var(--gold)}
+.btn--outline:hover{background:var(--gold-bg)}
+.btn--ghost{background:transparent;border:1.5px solid var(--border-2);color:var(--text-2)}
+.btn--ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn--full{width:100%}
+.btn--sm{padding:9px 18px;font-size:13px}
+.btn--lg{padding:15px 32px;font-size:15px}
+
+/* tags */
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:100px;border:1px solid transparent}
+.tag--gold{background:var(--gold-bg);color:var(--gold-d);border-color:var(--gold-bdr)}
+.tag--green{background:var(--green-bg);color:var(--green);border-color:rgba(30,107,69,.25)}
+.tag--gray{background:var(--bg3);color:var(--text-3);border-color:var(--border)}
+.tag--red{background:#FEF2F2;color:var(--red);border-color:#FECACA}
+.saving-pill{background:#DCFCE7;color:#166534;font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;border:1px solid #BBF7D0}
+
+/* ══════════════════════════════════════════════
+   NAV
+══════════════════════════════════════════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(253,250,245,.97);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.nav.scrolled{border-bottom-color:var(--border);box-shadow:0 2px 20px rgba(28,18,8,.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav__inner{max-width:1200px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav__logo{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.nav__mark{width:33px;height:33px;background:linear-gradient(135deg,var(--gold),var(--gold-d));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;letter-spacing:-.5px;flex-shrink:0}
+.nav__name{font-family:var(--font-d);font-weight:700;font-size:17px;color:var(--text);letter-spacing:.3px}
+.nav__tabs{display:none;gap:2px}
+.nav__tab{background:transparent;border:1.5px solid transparent;color:var(--text-3);font-size:14px;font-weight:600;padding:7px 16px;border-radius:9px;transition:all .2s}
+.nav__tab:hover{color:var(--text);background:var(--bg2)}
+.nav__tab.active{background:var(--gold-bg);border-color:var(--gold-bdr);color:var(--gold-d)}
+.nav__cta{display:none}
+.nav__burger{display:flex;flex-direction:column;gap:5px;background:transparent;border:none;padding:8px}
+.nav__burger span{display:block;width:22px;height:2px;background:var(--text-2);border-radius:2px;transition:all .3s}
+.nav__burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__burger.open span:nth-child(2){opacity:0}
+.nav__burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav__mobile{display:none;flex-direction:column;padding:12px 20px 20px;border-top:1px solid var(--border);background:var(--bg);gap:4px}
+.nav__mobile.open{display:flex}
+.nav__m-tab{background:transparent;border:none;color:var(--text-2);font-size:15px;font-weight:600;padding:12px 16px;text-align:left;border-radius:9px;transition:all .2s}
+.nav__m-tab:hover,.nav__m-tab.active{background:var(--gold-bg);color:var(--gold-d)}
+.nav__m-cta{margin-top:8px;text-align:center;display:block}
+
+/* ══════════════════════════════════════════════
+   TABS
+══════════════════════════════════════════════ */
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ══════════════════════════════════════════════
+   FADE IN
+══════════════════════════════════════════════ */
+.fi{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.fi.vis{opacity:1;transform:translateY(0)}
+.fi-1{transition-delay:.1s}.fi-2{transition-delay:.2s}.fi-3{transition-delay:.3s}
+
+/* ══════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════ */
+.hero{min-height:100vh;padding:calc(var(--nav-h) + 52px) 20px 72px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:44px;max-width:1080px;margin:0 auto;position:relative}
+.hero__badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-bg);border:1px solid var(--gold-bdr);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:700;color:var(--gold-d);letter-spacing:.5px;margin-bottom:4px}
+.hero__dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.hero__title{font-family:var(--font-d);font-size:clamp(2.6rem,7.5vw,5rem);font-weight:800;line-height:1.03;color:var(--text);letter-spacing:-1.5px;max-width:680px}
+.hero__sub{font-size:clamp(14px,1.8vw,16px);color:var(--text-3);line-height:1.8;max-width:520px}
+.hero__actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero__proof{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%}
+.proof-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow)}
+.proof-card__val{font-family:var(--font-d);font-size:28px;font-weight:700;color:var(--gold);line-height:1}
+.proof-card__lbl{font-size:12px;color:var(--text-3);margin-top:5px;line-height:1.4}
+
+/* ══════════════════════════════════════════════
+   TRUST BAR
+══════════════════════════════════════════════ */
+.trust-bar{background:var(--text);color:#F5F0E8;padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:24px 40px;font-size:13px;font-weight:600;letter-spacing:.3px}
+.trust-item{display:flex;align-items:center;gap:8px;opacity:.9}
+.trust-icon{font-size:16px}
+
+/* ══════════════════════════════════════════════
+   COURSES GRID
+══════════════════════════════════════════════ */
+.courses-grid{display:flex;flex-direction:column;gap:20px}
+.course-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);transition:border-color .3s,box-shadow .3s}
+.course-card:hover{border-color:var(--gold-bdr);box-shadow:var(--shadow-lg)}
+.course-card__stripe{height:4px}
+.course-card__body{padding:24px 22px}
+.course-card__top{display:flex;flex-direction:column;gap:14px;margin-bottom:20px}
+.course-card__meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.course-card__num{font-family:var(--font-m);font-size:13px;color:var(--text-4);font-weight:500}
+.course-card__title{font-family:var(--font-d);font-size:clamp(18px,2.5vw,22px);font-weight:700;color:var(--text);line-height:1.25;margin-bottom:6px}
+.course-card__hook{font-size:14px;color:var(--text-3);line-height:1.65}
+.course-card__includes{display:flex;flex-wrap:wrap;gap:10px;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:18px}
+.incl-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--text-3);background:var(--bg2);border-radius:7px;padding:5px 10px}
+.incl-icon{font-size:14px}
+.course-card__topics{margin-bottom:20px}
+.topics-toggle{background:transparent;border:none;font-size:13px;color:var(--gold);font-weight:700;padding:0;display:flex;align-items:center;gap:5px;margin-bottom:12px}
+.topics-body{display:none;flex-direction:column;gap:7px}
+.topics-body.open{display:flex}
+.topic-item{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text-2);line-height:1.55}
+.topic-arrow{color:var(--gold);flex-shrink:0;font-size:12px;margin-top:2px}
+.course-card__footer{display:flex;flex-direction:column;gap:12px}
+.course-card__price{display:flex;align-items:baseline;gap:8px}
+.price-val{font-family:var(--font-d);font-size:28px;font-weight:700;color:var(--gold-d)}
+.price-unit{font-size:13px;color:var(--text-3)}
+.course-card__btns{display:flex;flex-wrap:wrap;gap:10px}
+
+/* coming soon card */
+.coming-card{background:var(--bg2);border:1.5px dashed var(--border-2);border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:12px}
+.coming-card__header{display:flex;align-items:center;gap:12px}
+.coming-card__num{font-family:var(--font-m);font-size:22px;color:var(--text-4)}
+.coming-card__info strong{display:block;font-size:16px;font-weight:700;color:var(--text-2);margin-bottom:3px}
+.coming-card__info span{font-size:13px;color:var(--text-3)}
+
+/* ══════════════════════════════════════════════
+   PDF / GUIDE BADGES
+══════════════════════════════════════════════ */
+.delivery-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.delivery-box__title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3)}
+.delivery-item{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:12px 14px}
+.delivery-item__icon{font-size:20px;flex-shrink:0}
+.delivery-item strong{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.delivery-item span{font-size:12px;color:var(--text-3)}
+
+/* ══════════════════════════════════════════════
+   PRICING
+══════════════════════════════════════════════ */
+.pricing-section{padding:72px 0 80px}
+.pricing-toggle-wrap{display:flex;justify-content:center;margin-bottom:32px}
+.pricing-toggle{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px}
+.ptgl-btn{background:transparent;border:1.5px solid transparent;padding:9px 22px;border-radius:9px;font-size:14px;font-weight:700;color:var(--text-3);transition:all .2s;display:flex;align-items:center;gap:6px}
+.ptgl-btn.active{background:var(--card);border-color:var(--gold-bdr);color:var(--gold-d);box-shadow:0 2px 8px rgba(28,18,8,.08)}
+.plans{display:flex;flex-direction:column;gap:16px;margin-bottom:28px}
+.plan{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;position:relative;transition:border-color .3s,box-shadow .3s}
+.plan:hover{border-color:var(--gold-bdr);box-shadow:var(--shadow-lg)}
+.plan--best{border-color:var(--gold);box-shadow:0 4px 24px rgba(200,133,10,.15)}
+.plan__best-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap}
+.plan__label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px}
+.plan__price{display:flex;align-items:baseline;gap:6px;margin-bottom:4px}
+.plan__amount{font-family:var(--font-d);font-size:42px;font-weight:700;color:var(--gold-d);line-height:1}
+.plan__amount--old{font-size:22px;color:var(--text-4);text-decoration:line-through}
+.plan__period{font-size:14px;color:var(--text-3)}
+.plan__billed{font-size:12px;color:var(--text-3);margin-bottom:20px}
+.plan__list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.plan__list li{font-size:14px;color:var(--text-2);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.plan__list li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+.plan__list--highlight::before{content:'★';color:var(--gold)}
+.packages-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.package-item{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:20px 22px;display:flex;flex-direction:column;gap:14px;transition:border-color .3s}
+.package-item:hover{border-color:var(--gold-bdr)}
+.package-item--best{border-color:var(--gold);background:var(--gold-bg)}
+.pkg-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.pkg-title{font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px}
+.pkg-desc{font-size:13px;color:var(--text-3);line-height:1.5}
+.pkg-price{text-align:right;flex-shrink:0}
+.pkg-price__val{font-family:var(--font-d);font-size:26px;font-weight:700;color:var(--gold-d);line-height:1}
+.pkg-price__old{font-size:13px;color:var(--text-4);text-decoration:line-through;margin-bottom:2px}
+.pkg-price__label{font-size:11px;color:var(--text-3)}
+
+/* ══════════════════════════════════════════════
+   DEMO TEASER
+══════════════════════════════════════════════ */
+.demo-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 0}
+.demo-wrap{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+.demo-bar{background:linear-gradient(135deg,#1C1208,#3A2E1E);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.demo-bar__title{font-family:var(--font-d);font-size:17px;font-weight:700;color:#F5F0E8}
+.demo-bar__sub{font-size:12px;color:rgba(245,240,232,.55);margin-top:2px}
+.demo-lock{display:flex;align-items:center;gap:8px;background:rgba(200,133,10,.15);border:1px solid rgba(200,133,10,.3);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--gold-l)}
+.demo-body{padding:24px 22px}
+.demo-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.demo-inputs{display:flex;flex-direction:column;gap:16px}
+.demo-input-group{display:flex;flex-direction:column;gap:4px}
+.demo-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-3)}
+.demo-input{background:var(--bg2);border:1.5px solid var(--border);border-radius:9px;padding:11px 14px;font-family:var(--font-m);font-size:14px;color:var(--text);outline:none;width:100%;transition:border-color .2s}
+.demo-input:focus{border-color:var(--gold)}
+.demo-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.demo-result{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:20px}
+.demo-result__title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:16px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
+.result-row:last-child{border-bottom:none}
+.result-label{font-size:13px;color:var(--text-2)}
+.result-value{font-family:var(--font-m);font-size:13px;font-weight:600;color:var(--text)}
+.result-row--highlight .result-label{font-weight:700;color:var(--text)}
+.result-row--highlight .result-value{font-size:16px;color:var(--gold-d);font-weight:700}
+.demo-cta{margin-top:20px;text-align:center;padding:20px;background:var(--gold-bg);border:1px solid var(--gold-bdr);border-radius:var(--r)}
+.demo-cta p{font-size:14px;color:var(--text-2);margin-bottom:14px;line-height:1.65}
+.demo-cta strong{color:var(--text)}
+.demo-note{text-align:center;font-size:12px;color:var(--text-4);margin-top:12px}
+
+/* ══════════════════════════════════════════════
+   HOW IT WORKS
+══════════════════════════════════════════════ */
+.steps{display:flex;flex-direction:column;gap:20px}
+.step{display:flex;gap:18px;align-items:flex-start}
+.step__num{width:40px;height:40px;border-radius:50%;background:var(--gold-bg);border:2px solid var(--gold-bdr);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:15px;font-weight:600;color:var(--gold-d);flex-shrink:0}
+.step__body h4{font-weight:700;font-size:15px;color:var(--text);margin-bottom:4px}
+.step__body p{font-size:14px;color:var(--text-3);line-height:1.65}
+
+/* ══════════════════════════════════════════════
+   GUARANTEE / FAQ
+══════════════════════════════════════════════ */
+.guarantee-box{background:var(--green-bg);border:1.5px solid rgba(30,107,69,.25);border-radius:var(--r-lg);padding:28px 24px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.guarantee-box__icon{font-size:36px}
+.guarantee-box h3{font-family:var(--font-d);font-size:21px;font-weight:700;color:var(--text)}
+.guarantee-box p{font-size:14px;color:var(--text-2);line-height:1.75}
+.faq{display:flex;flex-direction:column;gap:12px}
+.faq-item{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden}
+.faq-q{background:transparent;border:none;width:100%;text-align:left;padding:18px 20px;font-size:15px;font-weight:700;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background .2s}
+.faq-q:hover{background:var(--bg2)}
+.faq-q__icon{color:var(--gold);font-size:18px;flex-shrink:0;transition:transform .3s}
+.faq-item.open .faq-q__icon{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 20px 18px;font-size:14px;color:var(--text-2);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+.footer{background:var(--text);color:#F5F0E8;padding:52px 0 28px}
+.footer__inner{display:flex;flex-direction:column;gap:36px;margin-bottom:36px}
+.footer__brand p{font-size:14px;color:rgba(245,240,232,.5);line-height:1.65;margin-top:10px;max-width:260px}
+.footer__cols{display:flex;flex-wrap:wrap;gap:32px}
+.footer__col h5{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.4);margin-bottom:14px}
+.footer__col a{display:block;font-size:14px;color:rgba(245,240,232,.6);margin-bottom:8px;transition:color .2s}
+.footer__col a:hover{color:var(--gold-l)}
+.footer__bottom{border-top:1px solid rgba(245,240,232,.08);padding-top:24px;display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(245,240,232,.35)}
+.footer-logo{display:flex;align-items:center;gap:9px}
+.footer-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--gold),var(--gold-d));border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:#fff}
+.footer-name{font-family:var(--font-d);font-weight:700;font-size:16px;color:#F5F0E8}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media(min-width:640px){
+  .hero__proof{grid-template-columns:repeat(4,1fr)}
+  .demo-row{grid-template-columns:1fr 1fr}
+  .plans{flex-direction:row;align-items:stretch}
+  .plan{flex:1}
+  .plan--best{order:-1}
+  .step{gap:24px}
+  .delivery-box{flex-direction:row;flex-wrap:wrap;gap:12px}
+  .delivery-item{flex:1 1 220px}
+  .guarantee-box{flex-direction:row;align-items:flex-start}
+  .footer__inner{flex-direction:row;justify-content:space-between}
+  .footer__bottom{flex-direction:row;justify-content:space-between}
+}
+@media(min-width:900px){
+  .nav__tabs{display:flex}
+  .nav__burger{display:none}
+  .nav__cta{display:inline-flex}
+  .courses-grid{display:grid;grid-template-columns:1fr 1fr}
+  .demo-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .packages-grid{display:grid;grid-template-columns:1fr 1fr}
+  .hero{flex-direction:row;align-items:center;gap:60px}
+  .hero__content{flex:1;max-width:580px}
+  .hero__proof{flex:0 0 260px;grid-template-columns:1fr;flex-direction:column}
+}
+@media(min-width:1200px){
+  .container{padding:0 40px}
+  .nav__inner{padding:0 40px}
+  .hero{padding-left:40px;padding-right:40px}
+  .courses-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="#">
+      <div class="nav__mark">PF</div>
+      <span class="nav__name">PROCFLOW</span>
+    </a>
+    <div class="nav__tabs">
+      <button class="nav__tab active" data-tab="home">Akademia</button>
+      <button class="nav__tab" data-tab="courses">Kursy</button>
+      <button class="nav__tab" data-tab="pricing">Cennik</button>
+      <button class="nav__tab" data-tab="demo">Demo narzędzia</button>
+    </div>
+    <button class="btn btn--gold btn--sm nav__cta" data-tab="pricing">Zacznij teraz</button>
+    <button class="nav__burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="nav__mobile" id="mobileMenu">
+    <button class="nav__m-tab" data-tab="home">Akademia</button>
+    <button class="nav__m-tab" data-tab="courses">Kursy</button>
+    <button class="nav__m-tab" data-tab="pricing">Cennik</button>
+    <button class="nav__m-tab" data-tab="demo">Demo narzędzia</button>
+    <button class="btn btn--gold nav__m-cta" data-tab="pricing">Zacznij teraz →</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════
+     TAB: AKADEMIA (home)
+═══════════════════════════════════ -->
+<main id="tab-home" class="tab-content active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <div class="hero__badge fi"><span class="hero__dot"></span>Akademia Operacji Magazynowych</div>
+      <h1 class="hero__title fi fi-1">
+        Wiedza która<br/><em>działa na hali.</em>
+      </h1>
+      <p class="hero__sub fi fi-2">
+        Kursy wideo, narzędzia i przewodniki wdrożeniowe dla menedżerów logistyki. Kupujesz osobno, w pakiecie lub abonamentowo. Każdy moduł to wiedza gotowa do użycia następnego dnia roboczego.
+      </p>
+      <div class="hero__actions fi fi-3">
+        <button class="btn btn--gold btn--lg" data-tab="courses">Zobacz kursy →</button>
+        <button class="btn btn--ghost btn--lg" data-tab="demo">Wypróbuj narzędzie</button>
+      </div>
+    </div>
+    <div class="hero__proof fi fi-2">
+      <div class="proof-card"><div class="proof-card__val">7</div><div class="proof-card__lbl">Modułów szkoleniowych</div></div>
+      <div class="proof-card"><div class="proof-card__val">3+</div><div class="proof-card__lbl">Narzędzia do pobrania</div></div>
+      <div class="proof-card"><div class="proof-card__val">PDF</div><div class="proof-card__lbl">Instrukcje wdrożeniowe</div></div>
+      <div class="proof-card"><div class="proof-card__val">100%</div><div class="proof-card__lbl">Gwarancja satysfakcji</div></div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item"><span class="trust-icon">🏭</span> Wiedza z 10+ lat w 3PL</div>
+    <div class="trust-item"><span class="trust-icon">🎬</span> Wideo krok po kroku</div>
+    <div class="trust-item"><span class="trust-icon">🔧</span> Narzędzia do natychmiastowego użycia</div>
+    <div class="trust-item"><span class="trust-icon">📄</span> PDF do druku i wdrożenia</div>
+    <div class="trust-item"><span class="trust-icon">📵</span> Offline — bez internetu na hali</div>
+  </div>
+
+  <!-- JAK TO DZIAŁA -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head fi">
+        <span class="eyebrow">Jak to działa</span>
+        <h2 class="section-title">Teoria to za mało.<br/><span class="text-em">Tutaj dostaniesz wszystko.</span></h2>
+      </div>
+      <div class="steps">
+        <div class="step fi">
+          <div class="step__num">01</div>
+          <div class="step__body">
+            <h4>Wybierz kurs lub pakiet</h4>
+            <p>Każdy moduł możesz kupić osobno lub zaoszczędzić wybierając pakiet lub abonament. Zaczynasz od tego, co jest Ci teraz najbardziej potrzebne.</p>
+          </div>
+        </div>
+        <div class="step fi fi-1">
+          <div class="step__num">02</div>
+          <div class="step__body">
+            <h4>Oglądasz filmy i pobierasz materiały</h4>
+            <p>Każdy moduł to wideo instruktażowe + narzędzia do pobrania (pliki HTML/Excel) + PDF z podsumowaniem i przewodnikiem wdrożeniowym dla magazynu.</p>
+          </div>
+        </div>
+        <div class="step fi fi-2">
+          <div class="step__num">03</div>
+          <div class="step__body">
+            <h4>Wdrażasz krok po kroku</h4>
+            <p>Przewodnik wdrożeniowy PDF mówi Ci dokładnie co zrobić na hali — jakie pytania zadać, jakie dane zebrać, jak przeprowadzić zmianę z zespołem.</p>
+          </div>
+        </div>
+        <div class="step fi fi-3">
+          <div class="step__num">04</div>
+          <div class="step__body">
+            <h4>Mierzysz wyniki narzędziami</h4>
+            <p>Każdy kurs ma dedykowane narzędzie (Excel lub HTML), które pozwala śledzić postęp i pokazać wyniki zarządowi lub klientowi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GWARANCJA -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="guarantee-box fi">
+        <div class="guarantee-box__icon">🛡️</div>
+        <div>
+          <h3>Gwarancja 14 dni bez pytań</h3>
+          <p>Jeżeli po zakupie uznasz, że materiały nie spełniają Twoich oczekiwań — zwracamy pieniądze w ciągu 24 godzin. Nie chcemy Twoich pieniędzy, jeśli nie czujesz wartości. To proste.</p>
+          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px">
+            <button class="btn btn--gold" data-tab="pricing">Sprawdź cennik →</button>
+            <button class="btn btn--ghost" data-tab="courses">Zobacz kursy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════
+     TAB: KURSY
+═══════════════════════════════════ -->
+<main id="tab-courses" class="tab-content">
+  <section class="section" style="padding-top:calc(var(--nav-h) + 48px)">
+    <div class="container">
+      <div class="section-head fi">
+        <span class="eyebrow">Kursy</span>
+        <h2 class="section-title">Wybierz swój<br/><span class="text-em">moduł szkoleniowy.</span></h2>
+        <p class="section-sub">Każdy kurs zawiera wideo, narzędzia do pobrania, PDF z podsumowaniem oraz szczegółowy przewodnik wdrożeniowy dla magazynu.</p>
+      </div>
+
+      <div class="courses-grid">
+
+        <!-- KURS 1 -->
+        <div class="course-card fi">
+          <div class="course-card__stripe" style="background:linear-gradient(90deg,#C8850A,transparent)"></div>
+          <div class="course-card__body">
+            <div class="course-card__top">
+              <div class="course-card__meta">
+                <span class="course-card__num">01</span>
+                <span class="tag tag--gold">Podstawowy</span>
+                <span class="tag tag--gray">2h 45min · 6 lekcji</span>
+              </div>
+              <div>
+                <h3 class="course-card__title">Standaryzacja procesów magazynowych</h3>
+                <p class="course-card__hook">Zbuduj procesy, które działają tak samo każdego dnia — niezależnie od tego, kto stoi przy stacji. Koniec z "bo tak zawsze robiliśmy".</p>
+              </div>
+            </div>
+
+            <div class="delivery-box" style="margin-bottom:16px">
+              <div class="delivery-box__title">Co otrzymujesz</div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">🎬</span>
+                <div><strong>6 filmów instruktażowych</strong><span>Krok po kroku, razem 2h 45min</span></div>
+              </div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">🔧</span>
+                <div><strong>Generator Etykiet 5S</strong><span>Narzędzie HTML gotowe do druku</span></div>
+              </div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">📄</span>
+                <div><strong>Podsumowanie PDF + Przewodnik wdrożeniowy</strong><span>Szablony SOP, lista kontrolna audytu, plan wdrożenia krok po kroku na Twojej hali</span></div>
+              </div>
+            </div>
+
+            <div class="course-card__topics">
+              <button class="topics-toggle" onclick="toggleTopics(this)">▸ Program kursu</button>
+              <div class="topics-body">
+                <div class="topic-item"><span class="topic-arrow">→</span>Jak zdefiniować i udokumentować standard procesu</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>SOP (Standard Operating Procedure) w praktyce magazynowej</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Wdrożenie 5S — metodyka bez oporu pracowników</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Audyt stanowisk i compliance rate</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Utrzymanie standardu po wdrożeniu</div>
+              </div>
+            </div>
+
+            <div class="course-card__footer">
+              <div class="course-card__price">
+                <span class="price-val">149 PLN</span>
+                <span class="price-unit">lub w pakiecie/abonamencie</span>
+              </div>
+              <div class="course-card__btns">
+                <button class="btn btn--gold btn--sm" data-tab="pricing">Kup kurs</button>
+                <button class="btn btn--ghost btn--sm" data-tab="pricing">Pakiety →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KURS 2 -->
+        <div class="course-card fi fi-1">
+          <div class="course-card__stripe" style="background:linear-gradient(90deg,#B5501A,transparent)"></div>
+          <div class="course-card__body">
+            <div class="course-card__top">
+              <div class="course-card__meta">
+                <span class="course-card__num">02</span>
+                <span class="tag tag--gold">Podstawowy</span>
+                <span class="tag tag--gray">2h 30min · 5 lekcji</span>
+              </div>
+              <div>
+                <h3 class="course-card__title">Mierzenie operacji — KPI które mają sens</h3>
+                <p class="course-card__hook">Skończ z raportowaniem dla raportowania. Wybierz 5 wskaźników które naprawdę mówią czy magazyn działa dobrze czy źle.</p>
+              </div>
+            </div>
+
+            <div class="delivery-box" style="margin-bottom:16px">
+              <div class="delivery-box__title">Co otrzymujesz</div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">🎬</span>
+                <div><strong>5 filmów instruktażowych</strong><span>Łącznie 2h 30min</span></div>
+              </div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">🔧</span>
+                <div><strong>Dashboard KPI w Excelu</strong><span>Szablon gotowy do wypełnienia</span></div>
+              </div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">📄</span>
+                <div><strong>Podsumowanie PDF + Przewodnik wdrożeniowy</strong><span>Biblioteka 40+ wskaźników z definicjami, plan wdrożenia pomiaru na zmianie</span></div>
+              </div>
+            </div>
+
+            <div class="course-card__topics">
+              <button class="topics-toggle" onclick="toggleTopics(this)">▸ Program kursu</button>
+              <div class="topics-body">
+                <div class="topic-item"><span class="topic-arrow">→</span>Produktywność vs efektywność — czym się różnią</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Jak czytać dane z WMS bez błędnych wniosków</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Budowa dashboardu operacyjnego w Excelu</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Benchmarki branżowe dla różnych typów operacji</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Raportowanie wyników dla zarządu</div>
+              </div>
+            </div>
+
+            <div class="course-card__footer">
+              <div class="course-card__price">
+                <span class="price-val">149 PLN</span>
+                <span class="price-unit">lub w pakiecie/abonamencie</span>
+              </div>
+              <div class="course-card__btns">
+                <button class="btn btn--gold btn--sm" data-tab="pricing">Kup kurs</button>
+                <button class="btn btn--ghost btn--sm" data-tab="pricing">Pakiety →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KURS 3 -->
+        <div class="course-card fi">
+          <div class="course-card__stripe" style="background:linear-gradient(90deg,#B91C1C,transparent)"></div>
+          <div class="course-card__body">
+            <div class="course-card__top">
+              <div class="course-card__meta">
+                <span class="course-card__num">03</span>
+                <span class="tag" style="background:#FEF3DC;color:#92400E;border-color:#F5D080">Średniozaawansowany</span>
+                <span class="tag tag--gray">3h 45min · 9 lekcji</span>
+                <span class="tag tag--gold">BESTSELLER</span>
+              </div>
+              <div>
+                <h3 class="course-card__title">Wycena procesów logistycznych</h3>
+                <p class="course-card__hook">Naucz się liczyć koszt jednostkowy usługi logistycznej od A do Z. Przestań zaniżać oferty. Zacznij bronić ceny przed klientem liczbami, nie intuicją.</p>
+              </div>
+            </div>
+
+            <div class="delivery-box" style="margin-bottom:16px">
+              <div class="delivery-box__title">Co otrzymujesz</div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">🎬</span>
+                <div><strong>9 filmów instruktażowych</strong><span>Łącznie 3h 45min</span></div>
+              </div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">🔧</span>
+                <div><strong>Kalkulator Wyceny Procesów (pełna wersja)</strong><span>Narzędzie HTML z eksportem Excel i PDF</span></div>
+              </div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">📄</span>
+                <div><strong>Podsumowanie PDF + Przewodnik wdrożeniowy</strong><span>Metodyka kalkulacji krok po kroku, arkusz zbierania danych na hali, przykłady wycen</span></div>
+              </div>
+            </div>
+
+            <div class="course-card__topics">
+              <button class="topics-toggle" onclick="toggleTopics(this)">▸ Program kursu</button>
+              <div class="topics-body">
+                <div class="topic-item"><span class="topic-arrow">→</span>Struktura kosztów w logistyce — co jest co</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Koszty pracy z uwzględnieniem produktywności</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Amortyzacja i CAPEX w wycenie jednostkowej</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Narzuty SG&A i jak nie zostawić pieniędzy na stole</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Marże i stawka handlowa — obrona przed presją klienta</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Praca z Kalkulatorem Wyceny Procesów — live demo</div>
+              </div>
+            </div>
+
+            <div class="course-card__footer">
+              <div class="course-card__price">
+                <span class="price-val">199 PLN</span>
+                <span class="price-unit">lub w pakiecie/abonamencie</span>
+              </div>
+              <div class="course-card__btns">
+                <button class="btn btn--gold btn--sm" data-tab="pricing">Kup kurs</button>
+                <button class="btn btn--outline btn--sm" data-tab="demo">Demo narzędzia</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KURS 4 -->
+        <div class="course-card fi fi-1">
+          <div class="course-card__stripe" style="background:linear-gradient(90deg,#1E6B45,transparent)"></div>
+          <div class="course-card__body">
+            <div class="course-card__top">
+              <div class="course-card__meta">
+                <span class="course-card__num">04</span>
+                <span class="tag" style="background:#EDF7F2;color:#1E6B45;border-color:rgba(30,107,69,.25)">Średniozaawansowany</span>
+                <span class="tag tag--gray">2h 15min · 5 lekcji</span>
+              </div>
+              <div>
+                <h3 class="course-card__title">Kalkulator zwrotu z inwestycji (ROI)</h3>
+                <p class="course-card__hook">Uzasadnij każdą inwestycję operacyjną liczbami. Payback period, oszczędności, analiza wrażliwości — zanim zarząd zacznie pytać.</p>
+              </div>
+            </div>
+
+            <div class="delivery-box" style="margin-bottom:16px">
+              <div class="delivery-box__title">Co otrzymujesz</div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">🎬</span>
+                <div><strong>5 filmów instruktażowych</strong><span>Łącznie 2h 15min</span></div>
+              </div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">🔧</span>
+                <div><strong>Kalkulator ROI + wykres payback</strong><span>Zintegrowany z Kalkulatorem Wyceny</span></div>
+              </div>
+              <div class="delivery-item">
+                <span class="delivery-item__icon">📄</span>
+                <div><strong>Podsumowanie PDF + Przewodnik wdrożeniowy</strong><span>Szablon prezentacji dla zarządu, wskazówki jak prezentować i bronić wyników</span></div>
+              </div>
+            </div>
+
+            <div class="course-card__topics">
+              <button class="topics-toggle" onclick="toggleTopics(this)">▸ Program kursu</button>
+              <div class="topics-body">
+                <div class="topic-item"><span class="topic-arrow">→</span>Model kosztowy przed/po — kwantyfikacja problemu</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Payback period i jak go liczyć w logistyce</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Analiza wrażliwości — co jeśli założenia się nie sprawdzą</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Wizualizacja ROI — wykres który mówi sam za siebie</div>
+                <div class="topic-item"><span class="topic-arrow">→</span>Prezentacja zarządowi — jak się przygotować i bronić</div>
+              </div>
+            </div>
+
+            <div class="course-card__footer">
+              <div class="course-card__price">
+                <span class="price-val">179 PLN</span>
+                <span class="price-unit">lub w pakiecie/abonamencie</span>
+              </div>
+              <div class="course-card__btns">
+                <button class="btn btn--gold btn--sm" data-tab="pricing">Kup kurs</button>
+                <button class="btn btn--ghost btn--sm" data-tab="pricing">Pakiety →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /courses-grid -->
+
+      <!-- MODUŁY W PRZYGOTOWANIU -->
+      <div style="margin-top:36px">
+        <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:16px">Kolejne moduły w przygotowaniu</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="coming-card fi">
+            <div class="coming-card__header">
+              <span class="coming-card__num">05</span>
+              <div class="coming-card__info">
+                <strong>Automatyzacja procesów magazynowych</strong>
+                <span>Które procesy warto automatyzować, jak liczyć opłacalność i jak wdrażać zmiany z zespołem</span>
+              </div>
+              <span class="tag tag--gray" style="margin-left:auto;flex-shrink:0">Q3 2025</span>
+            </div>
+          </div>
+          <div class="coming-card fi fi-1">
+            <div class="coming-card__header">
+              <span class="coming-card__num">06</span>
+              <div class="coming-card__info">
+                <strong>Digitalizacja operacji — WMS, TMS, skanowanie</strong>
+                <span>Jak wdrażać systemy IT w magazynie, mierzyć efekty i unikać typowych błędów wdrożeniowych</span>
+              </div>
+              <span class="tag tag--gray" style="margin-left:auto;flex-shrink:0">Q4 2025</span>
+            </div>
+          </div>
+          <div class="coming-card fi fi-2">
+            <div class="coming-card__header">
+              <span class="coming-card__num">07</span>
+              <div class="coming-card__info">
+                <strong>Sztuczna inteligencja w logistyce</strong>
+                <span>Praktyczne zastosowania AI w operacjach magazynowych — prognozowanie, optymalizacja tras, analiza danych</span>
+              </div>
+              <span class="tag tag--gray" style="margin-left:auto;flex-shrink:0">2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- ═══════════════════════════════════
+     TAB: CENNIK
+═══════════════════════════════════ -->
+<main id="tab-pricing" class="tab-content">
+  <section class="pricing-section" style="padding-top:calc(var(--nav-h) + 48px)">
+    <div class="container">
+      <div class="section-head fi">
+        <span class="eyebrow">Cennik</span>
+        <h2 class="section-title">Wybierz swój<br/><span class="text-em">sposób dostępu.</span></h2>
+        <p class="section-sub">Kup osobno to czego potrzebujesz, wybierz pakiet tematyczny lub uzyskaj pełen dostęp abonamentowo lub na zawsze.</p>
+      </div>
+
+      <!-- TOGGLE INDIVIDUAL / SUBSCRIPTION -->
+      <div class="pricing-toggle-wrap fi">
+        <div class="pricing-toggle">
+          <button class="ptgl-btn active" id="btn-individual" onclick="showPricing('individual')">Osobno / Pakiety</button>
+          <button class="ptgl-btn" id="btn-subscription" onclick="showPricing('subscription')">Abonament</button>
+        </div>
+      </div>
+
+      <!-- INDIVIDUAL + PACKAGES -->
+      <div id="section-individual">
+        <p style="text-align:center;font-size:13px;color:var(--text-3);margin-bottom:24px">Kup dokładnie to, czego potrzebujesz — bez zobowiązań.</p>
+
+        <div class="packages-grid fi">
+          <div class="package-item">
+            <div class="pkg-top">
+              <div>
+                <div class="pkg-title">Kurs podstawowy (×1)</div>
+                <div class="pkg-desc">Jeden wybrany moduł: standaryzacja <em>lub</em> mierzenie operacji</div>
+              </div>
+              <div class="pkg-price">
+                <div class="pkg-price__val">149 PLN</div>
+                <div class="pkg-price__label">jednorazowo</div>
+              </div>
+            </div>
+            <button class="btn btn--outline btn--full">Wybierz kurs</button>
+          </div>
+
+          <div class="package-item">
+            <div class="pkg-top">
+              <div>
+                <div class="pkg-title">Kurs zaawansowany (×1)</div>
+                <div class="pkg-desc">Jeden wybrany moduł: wycena procesów <em>lub</em> analiza ROI</div>
+              </div>
+              <div class="pkg-price">
+                <div class="pkg-price__val">179–199 PLN</div>
+                <div class="pkg-price__label">jednorazowo</div>
+              </div>
+            </div>
+            <button class="btn btn--outline btn--full">Wybierz kurs</button>
+          </div>
+
+          <div class="package-item package-item--best">
+            <div class="pkg-top">
+              <div>
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px">
+                  <div class="pkg-title" style="margin-bottom:0">Pakiet OPERACYJNY</div>
+                  <span class="tag tag--gold">Polecany</span>
+                </div>
+                <div class="pkg-desc">Moduły 01 + 02 + 03: standaryzacja, mierzenie KPI i wycena procesów</div>
+              </div>
+              <div class="pkg-price">
+                <div class="pkg-price__old">497 PLN</div>
+                <div class="pkg-price__val">349 PLN</div>
+                <div class="pkg-price__label" style="color:var(--green)">oszczędzasz 148 PLN</div>
+              </div>
+            </div>
+            <button class="btn btn--gold btn--full">Kup pakiet</button>
+          </div>
+
+          <div class="package-item">
+            <div class="pkg-top">
+              <div>
+                <div class="pkg-title">Pakiet KOMPLETNY (4 kursy)</div>
+                <div class="pkg-desc">Wszystkie 4 aktualne moduły + narzędzia + PDF-y</div>
+              </div>
+              <div class="pkg-price">
+                <div class="pkg-price__old">676 PLN</div>
+                <div class="pkg-price__val">449 PLN</div>
+                <div class="pkg-price__label" style="color:var(--green)">oszczędzasz 227 PLN</div>
+              </div>
+            </div>
+            <button class="btn btn--outline btn--full">Kup pakiet</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBSCRIPTION -->
+      <div id="section-subscription" style="display:none">
+        <p style="text-align:center;font-size:13px;color:var(--text-3);margin-bottom:24px">Dostęp do wszystkich modułów — obecnych i przyszłych — w jednej cenie.</p>
+
+        <div class="plans fi">
+          <div class="plan">
+            <div class="plan__label">Miesięczny</div>
+            <div class="plan__price">
+              <span class="plan__amount">89</span>
+              <span class="plan__period">PLN / mies.</span>
+            </div>
+            <div class="plan__billed">rozliczane co miesiąc · rezygnacja kiedy chcesz</div>
+            <ul class="plan__list">
+              <li>Dostęp do wszystkich 4 modułów</li>
+              <li>Narzędzia do pobrania (HTML/Excel)</li>
+              <li>Materiały PDF do druku</li>
+              <li>Dostęp do nowych modułów 05–07</li>
+              <li>Certyfikat po każdym module</li>
+            </ul>
+            <button class="btn btn--outline btn--full">Zacznij miesięczny</button>
+          </div>
+
+          <div class="plan plan--best">
+            <div class="plan__best-badge">Najlepsza wartość</div>
+            <div class="plan__label">Roczny</div>
+            <div class="plan__price">
+              <span class="plan__amount plan__amount--old">89</span>
+              <span class="plan__amount">59</span>
+              <span class="plan__period">PLN / mies.</span>
+            </div>
+            <div class="plan__billed">razem 699 PLN/rok · oszczędzasz 369 PLN</div>
+            <ul class="plan__list">
+              <li>Wszystko z planu miesięcznego</li>
+              <li>Priorytetowy dostęp do nowych kursów</li>
+              <li class="plan__list--highlight">Wersja Premium narzędzia Wycena</li>
+              <li class="plan__list--highlight">Bezpośredni kontakt z twórcą</li>
+              <li class="plan__list--highlight">Oszczędzasz 369 PLN rocznie</li>
+            </ul>
+            <button class="btn btn--gold btn--full">Kup dostęp roczny</button>
+          </div>
+
+          <div class="plan">
+            <div class="plan__label">Lifetime</div>
+            <div class="plan__price">
+              <span class="plan__amount">1299</span>
+              <span class="plan__period">PLN raz</span>
+            </div>
+            <div class="plan__billed">dostęp bezterminowy · płacisz raz</div>
+            <ul class="plan__list">
+              <li>Wszystko z planu rocznego</li>
+              <li>Wszystkie przyszłe moduły gratis</li>
+              <li>Wszystkie przyszłe narzędzia gratis</li>
+              <li class="plan__list--highlight">Zwrot kosztów po ~15 miesiącach</li>
+              <li class="plan__list--highlight">Nigdy więcej nie płacisz</li>
+            </ul>
+            <button class="btn btn--outline btn--full">Kup lifetime</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div style="margin-top:52px" class="fi">
+        <p style="text-align:center;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:24px">Najczęstsze pytania</p>
+        <div class="faq">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Czy mogę kupić jeden kurs i rozszerzyć później?<span class="faq-q__icon">+</span></button>
+            <div class="faq-a">Tak. Każdy kurs kupujesz osobno lub w pakiecie — dostęp jest bezterminowy. Możesz w każdej chwili dokupić kolejny kurs lub pakiet, a zapłacona kwota wlicza się w rozliczenie.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Co zawiera Przewodnik wdrożeniowy PDF?<span class="faq-q__icon">+</span></button>
+            <div class="faq-a">Każdy PDF to dokument 15–30 stron z: podsumowaniem kluczowych pojęć, listą kontrolną do wdrożenia na hali, przykładowymi pytaniami które warto zadać pracownikom, harmonogramem wdrożenia krok po kroku, najczęstszymi błędami i jak ich unikać.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Jak działają narzędzia do pobrania?<span class="faq-q__icon">+</span></button>
+            <div class="faq-a">To pliki HTML lub Excel które pobierasz raz i używasz bez internetu. Otwierasz w przeglądarce (Chrome/Edge) lub Excelu i działasz — nawet na hali produkcyjnej bez Wi-Fi.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Czy dostanę fakturę?<span class="faq-q__icon">+</span></button>
+            <div class="faq-a">Tak, każdy zakup jest dokumentowany fakturą VAT. Możesz wpisać dane firmy przy zakupie.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Czy abonament mogę anulować kiedy chcę?<span class="faq-q__icon">+</span></button>
+            <div class="faq-a">Tak. Plan miesięczny możesz anulować w każdej chwili — dostęp masz do końca opłaconego okresu. Plan roczny możesz anulować przed następnym odnowieniem.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:36px" class="fi">
+        <div class="guarantee-box">
+          <div class="guarantee-box__icon">🛡️</div>
+          <div>
+            <h3>Gwarancja 14 dni zwrotu</h3>
+            <p>Nie podoba się? Zwrócimy pełną kwotę bez pytań. Wystarczy e-mail w ciągu 14 dni od zakupu.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- ═══════════════════════════════════
+     TAB: DEMO NARZĘDZIA
+═══════════════════════════════════ -->
+<main id="tab-demo" class="tab-content">
+  <section class="demo-section" style="padding-top:calc(var(--nav-h) + 20px)">
+    <div class="container">
+      <div class="section-head fi">
+        <span class="eyebrow">Demo narzędzia</span>
+        <h2 class="section-title">Kalkulator Wyceny Procesów<br/><span class="text-em">— wersja demonstracyjna</span></h2>
+        <p class="section-sub">Wpisz podstawowe dane swojego procesu i sprawdź jak narzędzie oblicza koszt jednostkowy i stawkę handlową. Pełna wersja z eksportem Excel i PDF dostępna w kursie nr 03.</p>
+      </div>
+
+      <div class="demo-wrap fi">
+        <div class="demo-bar">
+          <div>
+            <div class="demo-bar__title">⚙️ Kalkulator Wyceny Procesów</div>
+            <div class="demo-bar__sub">Wersja demonstracyjna — uproszczone dane</div>
+          </div>
+          <div class="demo-lock">🔒 Pełna wersja w Kursie 03</div>
+        </div>
+        <div class="demo-body">
+          <div class="demo-grid">
+            <div class="demo-inputs">
+              <p style="font-size:13px;color:var(--text-3);margin-bottom:4px;line-height:1.6">Wypełnij pola poniżej — wyniki aktualizują się na bieżąco.</p>
+
+              <div class="demo-input-group">
+                <label class="demo-label">Wolumen (jedn./miesiąc)</label>
+                <input class="demo-input" type="number" id="d_vol" value="10000" min="1" oninput="calcDemo()"/>
+              </div>
+
+              <div class="demo-row">
+                <div class="demo-input-group">
+                  <label class="demo-label">Liczba pracowników</label>
+                  <input class="demo-input" type="number" id="d_workers" value="3" min="1" oninput="calcDemo()"/>
+                </div>
+                <div class="demo-input-group">
+                  <label class="demo-label">Stawka/h (PLN)</label>
+                  <input class="demo-input" type="number" id="d_rate" value="30" min="1" oninput="calcDemo()"/>
+                </div>
+              </div>
+
+              <div class="demo-row">
+                <div class="demo-input-group">
+                  <label class="demo-label">Jedn./os./h</label>
+                  <input class="demo-input" type="number" id="d_uph" value="60" min="1" oninput="calcDemo()"/>
+                </div>
+                <div class="demo-input-group">
+                  <label class="demo-label">Produktywność %</label>
+                  <input class="demo-input" type="number" id="d_eff" value="80" min="1" max="100" oninput="calcDemo()"/>
+                </div>
+              </div>
+
+              <div class="demo-row">
+                <div class="demo-input-group">
+                  <label class="demo-label">Koszty stałe/mies. (PLN)</label>
+                  <input class="demo-input" type="number" id="d_fixed" value="5000" min="0" oninput="calcDemo()"/>
+                </div>
+                <div class="demo-input-group">
+                  <label class="demo-label">Mat./jedn. (PLN)</label>
+                  <input class="demo-input" type="number" id="d_mat" value="0.20" step="0.01" min="0" oninput="calcDemo()"/>
+                </div>
+              </div>
+
+              <div class="demo-row">
+                <div class="demo-input-group">
+                  <label class="demo-label">Narzuty % (SG&A itp.)</label>
+                  <input class="demo-input" type="number" id="d_oh" value="10" min="0" oninput="calcDemo()"/>
+                </div>
+                <div class="demo-input-group">
+                  <label class="demo-label">Marża %</label>
+                  <input class="demo-input" type="number" id="d_margin" value="15" min="0" oninput="calcDemo()"/>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="demo-result">
+                <div class="demo-result__title">Wynik kalkulacji</div>
+                <div class="result-row">
+                  <span class="result-label">Koszt pracy / jedn.</span>
+                  <span class="result-value" id="r_labor">—</span>
+                </div>
+                <div class="result-row">
+                  <span class="result-label">Koszty stałe / jedn.</span>
+                  <span class="result-value" id="r_fixed">—</span>
+                </div>
+                <div class="result-row">
+                  <span class="result-label">Materiały / jedn.</span>
+                  <span class="result-value" id="r_mat">—</span>
+                </div>
+                <div class="result-row">
+                  <span class="result-label">Koszt bazowy / jedn.</span>
+                  <span class="result-value" id="r_base">—</span>
+                </div>
+                <div class="result-row">
+                  <span class="result-label">Narzuty / jedn.</span>
+                  <span class="result-value" id="r_oh">—</span>
+                </div>
+                <div class="result-row">
+                  <span class="result-label">Marża / jedn.</span>
+                  <span class="result-value" id="r_margin">—</span>
+                </div>
+                <div class="result-row result-row--highlight">
+                  <span class="result-label">⭐ Stawka handlowa / jedn.</span>
+                  <span class="result-value" id="r_rate">—</span>
+                </div>
+                <div class="result-row result-row--highlight" style="border-bottom:none">
+                  <span class="result-label">Przychód / miesiąc</span>
+                  <span class="result-value" id="r_rev">—</span>
+                </div>
+              </div>
+
+              <div id="demo-warning" style="display:none;margin-top:12px;background:#FEF2F2;border:1px solid #FECACA;border-radius:9px;padding:12px 14px;font-size:13px;color:#B91C1C;font-weight:600">
+                ⚠️ <span id="demo-warning-text"></span>
+              </div>
+
+              <div class="demo-cta">
+                <p><strong>To jest wersja demonstracyjna.</strong> Pełna wersja zawiera: obsługę wielu stanowisk pracy, CAPEX z amortyzacją, analizę ROI z wykresem, eksport Excel (4 arkusze) i eksport PDF dla klienta.</p>
+                <button class="btn btn--gold btn--lg" data-tab="pricing">Kup Kurs 03 — Wycena procesów</button>
+                <div class="demo-note">lub wybierz pakiet kompletny i oszczędź 227 PLN</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer-logo">
+          <div class="footer-mark">PF</div>
+          <span class="footer-name">PROCFLOW</span>
+        </div>
+        <p>Narzędzia i edukacja dla menedżerów logistyki i operacji magazynowych.</p>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h5>Kursy</h5>
+          <a href="#">Standaryzacja procesów</a>
+          <a href="#">Mierzenie KPI</a>
+          <a href="#">Wycena procesów</a>
+          <a href="#">Analiza ROI</a>
+        </div>
+        <div class="footer__col">
+          <h5>Oferta</h5>
+          <a href="#">Cennik</a>
+          <a href="#">Pakiety</a>
+          <a href="#">Abonament</a>
+          <a href="#">Demo narzędzia</a>
+        </div>
+        <div class="footer__col">
+          <h5>Firma</h5>
+          <a href="#">O nas</a>
+          <a href="#">Kontakt</a>
+          <a href="#">Polityka prywatności</a>
+          <a href="#">Regulamin</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="yr"></span> PROCFLOW · Wszelkie prawa zastrzeżone</span>
+      <span>Gwarancja zwrotu 14 dni</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══ year ══ */
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ══ scroll nav ══ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), {passive:true});
+
+/* ══ tab switch ══ */
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('[data-tab]').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById('tab-' + name);
+  if (el) { el.classList.add('active'); window.scrollTo({top:0,behavior:'instant'}); setTimeout(()=>triggerFadeIns(el),60); }
+  document.querySelectorAll('[data-tab="'+name+'"]').forEach(b => b.classList.add('active'));
+  closeMobile();
+}
+document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+
+/* ══ mobile menu ══ */
+const burger = document.getElementById('burger');
+const mob = document.getElementById('mobileMenu');
+function closeMobile(){burger.classList.remove('open');mob.classList.remove('open')}
+burger.addEventListener('click',()=>{burger.classList.toggle('open');mob.classList.toggle('open')});
+document.addEventListener('click', e => { if(!nav.contains(e.target)) closeMobile(); });
+
+/* ══ fade in ══ */
+function triggerFadeIns(scope = document) {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});
+  }, {threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  scope.querySelectorAll('.fi:not(.vis)').forEach(el => obs.observe(el));
+}
+triggerFadeIns();
+
+/* ══ topics toggle ══ */
+function toggleTopics(btn) {
+  const body = btn.nextElementSibling;
+  const open = body.classList.toggle('open');
+  btn.textContent = (open ? '▾ ' : '▸ ') + 'Program kursu';
+}
+
+/* ══ pricing toggle ══ */
+function showPricing(mode) {
+  document.getElementById('btn-individual').classList.toggle('active', mode==='individual');
+  document.getElementById('btn-subscription').classList.toggle('active', mode==='subscription');
+  document.getElementById('section-individual').style.display = mode==='individual' ? 'block' : 'none';
+  document.getElementById('section-subscription').style.display = mode==='subscription' ? 'block' : 'none';
+}
+
+/* ══ FAQ ══ */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ══ DEMO CALCULATOR ══ */
+function f(v, d=2) {
+  if (!isFinite(v)||isNaN(v)) return '—';
+  return v.toFixed(d).replace('.',',') + ' PLN';
+}
+function g(id){ return parseFloat(document.getElementById(id).value)||0; }
+
+function calcDemo() {
+  const vol = g('d_vol'), workers = g('d_workers'), rate = g('d_rate');
+  const uph = g('d_uph'), eff = g('d_eff'), fixed = g('d_fixed');
+  const mat = g('d_mat'), oh = g('d_oh'), margin = g('d_margin');
+
+  const warn = document.getElementById('demo-warning');
+  const warnTxt = document.getElementById('demo-warning-text');
+
+  if (vol <= 0) { warn.style.display='block'; warnTxt.textContent='Wpisz wolumen większy od 0'; return; }
+  warn.style.display='none';
+
+  const effUph = uph * eff / 100;
+  const teamUph = effUph * workers;
+  const hNeeded = teamUph > 0 ? vol / teamUph : 0;
+  const laborTotal = hNeeded * workers * rate;
+  const laborPU = laborTotal / vol;
+
+  const fixedPU = fixed / vol;
+  const matPU = mat;
+  const basePU = laborPU + fixedPU + matPU;
+  const ohPU = basePU * oh / 100;
+  const totalPU = basePU + ohPU;
+  const marginPU = totalPU * margin / 100;
+  const ratePU = totalPU + marginPU;
+
+  const capPct = teamUph > 0 ? (vol / (teamUph * 8 * 22)) * 100 : 0;
+  if (capPct > 100) {
+    warn.style.display='block';
+    warnTxt.textContent=`Uwaga: przy tych parametrach zespół jest przeciążony (${capPct.toFixed(0)}% pojemności). Zwiększ liczbę pracowników lub wydajność.`;
+  }
+
+  document.getElementById('r_labor').textContent = f(laborPU);
+  document.getElementById('r_fixed').textContent = f(fixedPU);
+  document.getElementById('r_mat').textContent = f(matPU);
+  document.getElementById('r_base').textContent = f(basePU);
+  document.getElementById('r_oh').textContent = f(ohPU);
+  document.getElementById('r_margin').textContent = f(marginPU);
+  document.getElementById('r_rate').textContent = f(ratePU);
+  document.getElementById('r_rev').textContent = f(ratePU * vol, 0);
+}
+
+// init demo on first run
+document.addEventListener('DOMContentLoaded', calcDemo);
+setTimeout(calcDemo, 200);
+</script>
+</body>
+</html>
