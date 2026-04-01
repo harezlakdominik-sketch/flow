@@ -5,15 +5,17 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>PROCFLOW — Akademia Operacji Magazynowych</title>
-<meta name="color-scheme" content="light"/>
+<meta name="color-scheme" content="light only"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;color-scheme:light;background:#FFFFFF}
+html{scroll-behavior:smooth;color-scheme:light only;background:#FFFFFF}
 :root{
   --or:#E8820C;--or-d:#BF6208;--or-l:#FF9D2E;--or-bg:#FFF3E6;--or-bdr:#FFD4A3;
+  --teal:#0B8A7A;--teal-d:#076E62;--teal-l:#1DB8A8;--teal-bg:#E5F7F5;--teal-bdr:#A8DDD8;
+  --blue:#1A75B8;--blue-d:#115A90;--blue-l:#3B95D4;--blue-bg:#E6F2FB;--blue-bdr:#A8D3EF;
   --bg:#FFFFFF;--bg2:#FFF8F2;--bg3:#FFF0E0;
   --text:#1A0E00;--t2:#3A2A14;--t3:#5C4830;--t4:#8A7260;
   --bdr:#E8D5BE;--bdr2:#D4B896;
@@ -100,7 +102,7 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
 .proof-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .proof-card{background:#FFF8F2;border:1px solid var(–bdr);border-radius:var(–r);padding:18px;box-shadow:var(–sh)}
-.proof-val{font-family:var(–fd);font-size:30px;font-weight:700;color:var(–or);line-height:1}
+.proof-val{font-family:var(–fd);font-size:30px;font-weight:700;color:var(–blue);line-height:1}
 .proof-lbl{font-size:12px;color:#5C4830;margin-top:5px;line-height:1.4}
 
 /* TRUST */
@@ -119,20 +121,20 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
 .cc-hook{font-size:14px;color:#3A2A14;line-height:1.7;margin-bottom:18px}
 
 /* DELIVERY BOX */
-.dbox{background:#FFF8F2;border:1px solid var(–bdr);border-radius:var(–r);padding:14px 16px;margin-bottom:16px;display:flex;flex-direction:column;gap:8px}
-.dbox-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–t3);margin-bottom:4px}
+.dbox{background:var(–blue-bg);border:1px solid var(–blue-bdr);border-radius:var(–r);padding:14px 16px;margin-bottom:16px;display:flex;flex-direction:column;gap:8px}
+.dbox-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–blue-d);margin-bottom:4px}
 .di{display:flex;align-items:flex-start;gap:11px;background:var(–bg);border:1px solid var(–bdr);border-radius:8px;padding:11px 13px}
 .di-icon{font-size:17px;flex-shrink:0;margin-top:1px}
 .di strong{display:block;font-size:13px;font-weight:700;color:var(–text);margin-bottom:2px}
 .di span{font-size:12px;color:var(–t3);line-height:1.4}
 
 /* TOPICS */
-.topics-btn{font-size:13px;color:var(–or);font-weight:700;padding:0;display:flex;align-items:center;gap:5px;margin-bottom:10px;transition:color .2s}
-.topics-btn:hover{color:var(–or-d)}
-.topics-body{display:none;flex-direction:column;gap:7px;margin-bottom:14px;padding:12px 14px;background:var(–bg2);border-radius:var(–r);border:1px solid var(–bdr)}
+.topics-btn{font-size:13px;color:var(–blue);font-weight:700;padding:0;display:flex;align-items:center;gap:5px;margin-bottom:10px;transition:color .2s}
+.topics-btn:hover{color:var(–blue-d)}
+.topics-body{display:none;flex-direction:column;gap:7px;margin-bottom:14px;padding:12px 14px;background:var(–blue-bg);border-radius:var(–r);border:1px solid var(–blue-bdr)}
 .topics-body.open{display:flex}
 .ti2{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(–t2);line-height:1.55}
-.ti2-arr{color:var(–or);flex-shrink:0;font-size:11px;margin-top:3px}
+.ti2-arr{color:var(–blue);flex-shrink:0;font-size:11px;margin-top:3px}
 
 /* TIMELINE */
 .tl-btn{font-size:13px;color:var(–t2);font-weight:600;padding:0;display:flex;align-items:center;gap:5px;margin-bottom:10px;border-bottom:1.5px dashed var(–bdr2);padding-bottom:10px;width:100%;justify-content:space-between;transition:color .2s}
@@ -140,10 +142,13 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
 .tl-body{display:none;margin-bottom:16px}
 .tl-body.open{display:block}
 .tl-track{position:relative;padding:16px 0}
-.tl-line{position:absolute;left:16px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(–or),var(–or-bdr));border-radius:2px}
+.tl-line{position:absolute;left:16px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(–blue),var(–blue-bdr));border-radius:2px}
 .tl-steps{display:flex;flex-direction:column;gap:0}
 .tl-step{display:flex;gap:16px;padding:10px 0;position:relative}
-.tl-dot{width:32px;height:32px;border-radius:50%;background:var(–or);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;z-index:1;border:3px solid var(–bg)}
+.tl-dot{width:32px;height:32px;border-radius:50%;background:var(–blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;z-index:1;border:3px solid var(–bg)}
+.tl-content h5{font-size:13px;font-weight:700;color:var(–text);margin-bottom:3px}
+.tl-content p{font-size:12px;color:var(–t3);line-height:1.55}
+.tl-badge{font-size:10px;font-weight:700;color:var(–blue-d);background:var(–blue-bg);border:1px solid var(–blue-bdr);padding:2px 8px;border-radius:100px;display:inline-block;margin-bottom:4px}
 .tl-content h5{font-size:13px;font-weight:700;color:var(–text);margin-bottom:3px}
 .tl-content p{font-size:12px;color:var(–t3);line-height:1.55}
 .tl-badge{font-size:10px;font-weight:700;color:var(–or);background:var(–or-bg);border:1px solid var(–or-bdr);padding:2px 8px;border-radius:100px;display:inline-block;margin-bottom:4px}
@@ -182,8 +187,8 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
 .plans{display:flex;flex-direction:column;gap:14px;margin-bottom:16px}
 .plan{background:var(–bg);border:1.5px solid var(–bdr);border-radius:var(–rl);padding:26px 22px;position:relative;transition:border-color .3s,box-shadow .3s}
 .plan:hover{border-color:var(–or-bdr);box-shadow:var(–sh)}
-.plan–best{border-color:var(–or);box-shadow:var(–sh)}
-.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(–or);color:#fff;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap}
+.plan–best{border-color:var(–blue);box-shadow:0 4px 24px rgba(26,117,184,.15)}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(–blue);color:#fff;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap}
 .plan-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–t3);margin-bottom:8px}
 .plan-price{display:flex;align-items:baseline;gap:6px;margin-bottom:4px}
 .pa{font-family:var(–fd);font-size:42px;font-weight:700;color:var(–or-d);line-height:1}
@@ -203,8 +208,8 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
 .faq{display:flex;flex-direction:column;gap:10px}
 .faq-item{background:var(–bg);border:1.5px solid var(–bdr);border-radius:var(–r);overflow:hidden}
 .faq-q{background:transparent;border:none;width:100%;text-align:left;padding:16px 18px;font-size:15px;font-weight:700;color:var(–text);display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background .2s}
-.faq-q:hover{background:var(–bg2)}
-.faq-icon{color:var(–or);font-size:18px;flex-shrink:0;transition:transform .3s}
+.faq-q:hover{background:var(–blue-bg)}
+.faq-icon{color:var(–blue);font-size:18px;flex-shrink:0;transition:transform .3s}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
 .faq-a{display:none;padding:0 18px 16px;font-size:14px;color:var(–t2);line-height:1.75}
 .faq-item.open .faq-a{display:block}
@@ -213,6 +218,74 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
 .gbox{background:var(–green-bg);border:1.5px solid rgba(26,92,56,.2);border-radius:var(–rl);padding:26px 22px;display:flex;flex-direction:column;gap:12px}
 .gbox h3{font-family:var(–fd);font-size:21px;font-weight:700;color:var(–text)}
 .gbox p{font-size:14px;color:var(–t2);line-height:1.75}
+
+/* LEAN JOURNEY */
+.lean-section{padding:80px 0;background:var(–bg)}
+.lean-flow{display:flex;flex-direction:column;gap:0;margin-top:48px}
+.lean-stage{display:flex;gap:20px;align-items:flex-start;padding:28px 0;border-bottom:1px solid var(–bdr);position:relative}
+.lean-stage:last-child{border-bottom:none}
+.lean-num{width:52px;height:52px;border-radius:14px;background:var(–or);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(–fm);font-size:15px;font-weight:700;flex-shrink:0;position:relative;z-index:1}
+.lean-connector{position:absolute;left:25px;top:80px;bottom:-28px;width:2px;background:linear-gradient(to bottom,var(–or-bdr),transparent);z-index:0}
+.lean-stage:last-child .lean-connector{display:none}
+.lean-body{flex:1}
+.lean-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–or);margin-bottom:6px;display:block}
+.lean-title{font-family:var(–fd);font-size:clamp(18px,2.5vw,22px);font-weight:700;color:var(–text);margin-bottom:7px;line-height:1.2}
+.lean-desc{font-size:14px;color:var(–t3);line-height:1.7;margin-bottom:14px}
+.lean-modules{display:flex;flex-wrap:wrap;gap:8px}
+.lean-mod{display:flex;align-items:center;gap:7px;background:var(–blue-bg);border:1px solid var(–blue-bdr);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;color:var(–blue-d);cursor:pointer;transition:all .2s}
+.lean-mod:hover{background:var(–blue-bdr);transform:translateY(-1px)}
+.lean-mod-num{font-family:var(–fm);font-size:10px;background:var(–blue);color:#fff;width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lean-result{background:linear-gradient(135deg,var(–or-bg),#FFF8F0);border:1.5px solid var(–or-bdr);border-radius:var(–rl);padding:24px;margin-top:36px;display:flex;gap:16px;align-items:flex-start}
+.lean-result-icon{font-size:32px;flex-shrink:0}
+.lean-result h4{font-family:var(–fd);font-size:18px;font-weight:700;color:var(–text);margin-bottom:6px}
+.lean-result p{font-size:14px;color:var(–t2);line-height:1.7}
+
+/* SIMULATION LAB */
+.sim-section{padding:80px 0;background:var(–dark)}
+.sim-inner{display:grid;grid-template-columns:1fr;gap:40px}
+.sim-text .eyebrow-light{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(–teal-l);margin-bottom:14px}
+.sim-text h2{font-family:var(–fd);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#FFF3E6;line-height:1.15;margin-bottom:16px}
+.sim-text p{font-size:15px;color:rgba(255,243,230,.55);line-height:1.8;margin-bottom:20px}
+.sim-coming{display:inline-flex;align-items:center;gap:8px;background:rgba(11,138,122,.18);border:1px solid rgba(11,138,122,.35);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:700;color:var(–teal-l);margin-bottom:24px}
+.sim-coming-dot{width:7px;height:7px;border-radius:50%;background:var(–teal-l);animation:pulse 2s infinite}
+.sim-what{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.sim-item{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;background:rgba(255,243,230,.04);border:1px solid rgba(255,243,230,.07);border-radius:9px}
+.sim-item-dot{width:8px;height:8px;border-radius:50%;background:var(–teal-l);flex-shrink:0;margin-top:5px}
+.sim-item strong{display:block;font-size:13px;font-weight:700;color:#FFF3E6;margin-bottom:2px}
+.sim-item span{font-size:12px;color:rgba(255,243,230,.4);line-height:1.5}
+/* MOCK UI */
+.sim-ui{background:rgba(255,243,230,.04);border:1px solid rgba(255,243,230,.1);border-radius:var(–rl);overflow:hidden}
+.sim-ui-bar{background:rgba(11,138,122,.2);border-bottom:1px solid rgba(11,138,122,.3);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.sim-ui-bar-t{font-size:13px;font-weight:700;color:var(–teal-l);display:flex;align-items:center;gap:8px}
+.sim-ui-bar-badge{font-size:10px;font-weight:700;background:rgba(11,138,122,.3);color:var(–teal-l);padding:2px 9px;border-radius:100px;border:1px solid rgba(11,138,122,.4)}
+.sim-scenarios{padding:14px}
+.sim-scenario{background:rgba(255,243,230,.03);border:1px solid rgba(255,243,230,.07);border-radius:9px;padding:14px 16px;margin-bottom:10px;position:relative}
+.sim-scenario:last-child{margin-bottom:0}
+.sim-scenario–active{border-color:rgba(11,138,122,.4);background:rgba(11,138,122,.07)}
+.sim-scenario–locked{opacity:.45}
+.sim-scenario-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.sim-scenario-mod{font-family:var(–fm);font-size:10px;font-weight:700;background:rgba(11,138,122,.25);color:var(–teal-l);padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:1px}
+.sim-scenario-title{font-size:13px;font-weight:700;color:#FFF3E6;line-height:1.35}
+.sim-scenario-desc{font-size:11px;color:rgba(255,243,230,.4);line-height:1.5;margin-bottom:8px}
+.sim-metrics{display:flex;gap:8px;flex-wrap:wrap}
+.sim-metric{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700}
+.sim-metric–up{color:#4ADE80}
+.sim-metric–down{color:#FB923C}
+.sim-lock-badge{position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;color:rgba(255,243,230,.3);background:rgba(255,243,230,.06);padding:2px 8px;border-radius:100px;border:1px solid rgba(255,243,230,.1)}
+.sim-notify{margin-top:14px;padding:14px;background:rgba(11,138,122,.1);border:1px solid rgba(11,138,122,.2);border-radius:var(–r)}
+.sim-notify p{font-size:13px;color:rgba(255,243,230,.6);margin-bottom:10px}
+.sim-notify-form{display:flex;flex-direction:column;gap:8px}
+.sim-email{background:rgba(255,255,255,.07);border:1px solid rgba(255,243,230,.12);border-radius:8px;padding:10px 14px;font-size:14px;color:#FFF3E6;outline:none;width:100%;font-family:var(–fb)}
+.sim-email::placeholder{color:rgba(255,243,230,.3)}
+.sim-email:focus{border-color:rgba(11,138,122,.5)}
+.btn-teal{background:var(–teal);color:#fff;box-shadow:0 4px 16px rgba(11,138,122,.25)}
+.btn-teal:hover{background:var(–teal-l);transform:translateY(-1px)}
+.btn-blue{background:var(–blue);color:#fff;box-shadow:0 4px 16px rgba(26,117,184,.2)}
+.btn-blue:hover{background:var(–blue-l);transform:translateY(-1px)}
+.tag-blue{background:var(–blue-bg);color:var(–blue-d);border-color:var(–blue-bdr)}
+@media(min-width:800px){
+.sim-inner{grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+}
 
 /* ═══ DEMO ═══ */
 .demo-wrap{background:var(–bg);border:1.5px solid var(–bdr);border-radius:var(–rl);overflow:hidden;box-shadow:var(–sh2)}
@@ -242,7 +315,7 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
 /* STEPS */
 .steps{display:flex;flex-direction:column;gap:18px}
 .step{display:flex;gap:16px;align-items:flex-start}
-.step-num{width:38px;height:38px;border-radius:50%;background:var(–or-bg);border:2px solid var(–or-bdr);display:flex;align-items:center;justify-content:center;font-family:var(–fm);font-size:14px;font-weight:600;color:var(–or-d);flex-shrink:0}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(–blue-bg);border:2px solid var(–blue-bdr);display:flex;align-items:center;justify-content:center;font-family:var(–fm);font-size:14px;font-weight:600;color:var(–blue-d);flex-shrink:0}
 .step-body h4{font-weight:700;font-size:15px;color:var(–text);margin-bottom:3px}
 .step-body p{font-size:14px;color:var(–t3);line-height:1.65}
 
@@ -301,7 +374,8 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
       <button class="nav-tab active" data-tab="home">Akademia</button>
       <button class="nav-tab" data-tab="courses">Kursy</button>
       <button class="nav-tab" data-tab="pricing">Cennik</button>
-      <button class="nav-tab" data-tab="demo">Demo narzędzia</button>
+      <button class="nav-tab" data-tab="lab" style="display:flex;align-items:center;gap:5px">⚗️ Lab <span style="font-size:9px;background:var(--teal);color:#fff;padding:1px 5px;border-radius:4px;font-weight:700">BETA</span></button>
+      <button class="nav-tab" data-tab="demo">Demo</button>
     </div>
     <button class="btn btn-or btn-sm nav-cta" data-tab="pricing">Zacznij teraz</button>
     <button class="burger" id="burger"><span></span><span></span><span></span></button>
@@ -310,6 +384,7 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
     <button class="mob-tab" data-tab="home">Akademia</button>
     <button class="mob-tab" data-tab="courses">Kursy</button>
     <button class="mob-tab" data-tab="pricing">Cennik</button>
+    <button class="mob-tab" data-tab="lab">⚗️ Lab Operacyjny <span style="font-size:10px;background:var(--teal);color:#fff;padding:1px 6px;border-radius:4px;margin-left:4px">BETA</span></button>
     <button class="mob-tab" data-tab="demo">Demo narzędzia</button>
     <button class="btn btn-or mob-cta" data-tab="pricing">Zacznij teraz →</button>
   </div>
@@ -356,6 +431,112 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
         <div class="step fi d1"><div class="step-num">02</div><div class="step-body"><h4>Oglądasz filmy i pobierasz materiały</h4><p>Każdy moduł to wideo instruktażowe + narzędzia HTML/Excel do pobrania + PDF z podsumowaniem i przewodnikiem wdrożeniowym.</p></div></div>
         <div class="step fi d2"><div class="step-num">03</div><div class="step-body"><h4>Wdrażasz z osią czasu</h4><p>Każdy kurs zawiera harmonogram wdrożenia — widzisz co robić w tygodniu 1, 2, 3 i jak mierzyć efekty. Krok po kroku, bez zgadywania.</p></div></div>
         <div class="step fi d3"><div class="step-num">04</div><div class="step-body"><h4>Mierzysz wyniki narzędziami</h4><p>Dedykowane narzędzie do każdego modułu pozwala śledzić postęp i pokazać wyniki zarządowi lub klientowi w profesjonalnym raporcie.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LEAN JOURNEY ══ -->
+
+  <section class="lean-section">
+    <div class="container">
+      <div class="sh fi">
+        <span class="eyebrow">Twoja droga do Lean</span>
+        <h2 class="title">Od chaosu operacyjnego<br/>do <span class="em">ciągłego doskonalenia.</span></h2>
+        <p class="subtitle">Akademia PROCFLOW przeprowadzi Cię przez cztery etapy budowania sprawnej operacji. Każdy etap ma przypisane moduły, narzędzia i przewodniki wdrożeniowe.</p>
+      </div>
+
+```
+  <div class="lean-flow">
+
+    <div class="lean-stage fi">
+      <div class="lean-connector"></div>
+      <div class="lean-num" style="background:#E8820C">01</div>
+      <div class="lean-body">
+        <span class="lean-tag">Etap 1 — Fundamenty</span>
+        <h3 class="lean-title">Ustandaryzuj i udokumentuj procesy</h3>
+        <p class="lean-desc">Zanim zaczniesz optymalizować, musisz wiedzieć jak Twoje procesy faktycznie wyglądają. Zdefiniuj standard, wdróż 5S, stwórz SOPy — zbuduj podstawę na której wszystko inne będzie stać.</p>
+        <div class="lean-modules">
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">01</span> Standaryzacja procesów</div>
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">02</span> Mierzenie operacji</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lean-stage fi d1">
+      <div class="lean-connector"></div>
+      <div class="lean-num" style="background:#C87A10">02</div>
+      <div class="lean-body">
+        <span class="lean-tag">Etap 2 — Pomiar</span>
+        <h3 class="lean-title">Zmierz co się dzieje naprawdę</h3>
+        <p class="lean-desc">Nie możesz zarządzać tym, czego nie mierzysz. Wybierz właściwe KPI, zbuduj dashboard operacyjny i zbieraj dane, które powiedzą Ci gdzie są straty — zanim Twój klient lub zarząd zapyta.</p>
+        <div class="lean-modules">
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">02</span> KPI które mają sens</div>
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">05</span> Identyfikacja strat (Muda)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lean-stage fi d2">
+      <div class="lean-connector"></div>
+      <div class="lean-num" style="background:#B05010">03</div>
+      <div class="lean-body">
+        <span class="lean-tag">Etap 3 — Optymalizacja</span>
+        <h3 class="lean-title">Znajdź przyczyny i eliminuj straty</h3>
+        <p class="lean-desc">Masz dane — teraz je przeanalizuj. Diagram Pareto pokaże gdzie leży 80% problemów. Metoda 5 Why dotrze do prawdziwej przyczyny. Fishbone ustrukturyzuje analizę zespołu. Korelacja potwierdzi zależności.</p>
+        <div class="lean-modules">
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">05</span> Analiza Pareto (80/20)</div>
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">05</span> 5 Why — przyczyny główne</div>
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">05</span> Diagram Fishbone</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lean-stage fi d3">
+      <div class="lean-num" style="background:#8C3C08">04</div>
+      <div class="lean-body">
+        <span class="lean-tag">Etap 4 — Wycena i inwestycje</span>
+        <h3 class="lean-title">Wyceniaj procesy i uzasadniaj inwestycje</h3>
+        <p class="lean-desc">Wiesz co poprawić — teraz policz ile to kosztuje i ile zaoszczędzisz. Oblicz stawkę handlową, zaprojektuj biznesowe uzasadnienie inwestycji i broń swojej decyzji przed zarządem liczbami, nie intuicją.</p>
+        <div class="lean-modules">
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">03</span> Wycena procesów</div>
+          <div class="lean-mod" onclick="switchTab('courses')"><span class="lean-mod-num">04</span> Kalkulator ROI</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lean-result fi">
+    <div class="lean-result-icon">🏆</div>
+    <div>
+      <h4>Wynik: sprawna operacja gotowa na audyt, klienta i zarząd</h4>
+      <p>Po przejściu przez cztery etapy z PROCFLOW masz udokumentowane procesy, mierzalne KPI, wyeliminowane główne straty i wycenę swoich usług. To fundament każdej organizacji Lean — i argumenty których potrzebujesz na każdym spotkaniu.</p>
+      <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px">
+        <button class="btn btn-or" data-tab="courses">Zacznij od modułu 01 →</button>
+        <button class="btn" style="background:var(--teal-bg);border:1.5px solid var(--teal-bdr);color:var(--teal-d);font-weight:700" data-tab="lab">Zobacz Lab Operacyjny →</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+  </section>
+
+  <!-- ══ LAB TEASER ══ -->
+
+  <section class="section" style="padding:52px 0;background:var(--dark)">
+    <div class="container">
+      <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start;max-width:720px;margin:0 auto" class="fi">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="width:44px;height:44px;border-radius:12px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">⚗️</div>
+          <div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal-l);margin-bottom:3px">W przygotowaniu — 2026</div>
+            <h3 style="font-family:var(--fd);font-size:22px;font-weight:700;color:#FFF3E6;line-height:1.2">Lab Operacyjny — Symulator Procesu</h3>
+          </div>
+        </div>
+        <p style="font-size:15px;color:rgba(255,243,230,.55);line-height:1.8">Interaktywny symulator gdzie testujesz zmiany procesowe — analiza ABC, One Piece Flow, redukcja buforów — i widzisz ich wpływ na produktywność i koszty <em style="color:rgba(255,243,230,.8)">zanim wdrożysz je na hali.</em> Każdy ukończony moduł odblokowuje nowe scenariusze.</p>
+        <button class="btn btn-teal" data-tab="lab">Odkryj Lab Operacyjny →</button>
       </div>
     </div>
   </section>
@@ -866,6 +1047,158 @@ button{cursor:pointer;font-family:var(--fb);border:none;background:none}
 </section>
 </main>
 
+<!-- ════════ TAB: LAB OPERACYJNY ════════ -->
+
+<main id="tab-lab" class="tab-content">
+<section class="sim-section" style="padding-top:calc(var(--nav) + 48px);padding-bottom:80px">
+<div class="container">
+
+  <div class="sh fi" style="text-align:left;margin-bottom:40px">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <div style="width:48px;height:48px;border-radius:12px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">⚗️</div>
+      <div>
+        <div class="sim-coming"><span class="sim-coming-dot"></span> W przygotowaniu — 2026</div>
+      </div>
+    </div>
+    <h2 style="font-family:var(--fd);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;color:#FFF3E6;line-height:1.12;margin-bottom:14px">Lab Operacyjny<br/><em style="color:var(--teal-l)">Symulator Procesu</em></h2>
+    <p style="font-size:16px;color:rgba(255,243,230,.55);max-width:620px;line-height:1.8">Interaktywny symulator gdzie testujesz zmiany procesowe i widzisz ich wpływ na produktywność, koszty i lead time — zanim wdrożysz je na hali. Każdy ukończony moduł Akademii odblokowuje nowe scenariusze symulacji.</p>
+  </div>
+
+  <div class="sim-inner fi">
+
+```
+<div class="sim-text">
+  <span class="eyebrow-light" style="margin-bottom:20px;display:block">Co będziesz mógł symulować</span>
+  <div class="sim-what">
+    <div class="sim-item">
+      <div class="sim-item-dot"></div>
+      <div><strong>Analiza ABC — rozmieszczenie lokacji</strong><span>Przesuń towar A bliżej strefy kompletacji. Symulator liczy dystans, czas i oszczędność na każdej zmianie — dla Twojego wolumenu.</span></div>
+    </div>
+    <div class="sim-item">
+      <div class="sim-item-dot"></div>
+      <div><strong>Skrócenie transportu wewnętrznego</strong><span>Zmień layout hali i sprawdź jak spada koszt jednostkowy i czas cyklu całego procesu kompletacji.</span></div>
+    </div>
+    <div class="sim-item">
+      <div class="sim-item-dot"></div>
+      <div><strong>One Piece Flow vs. produkcja partiami</strong><span>Porównaj dwa modele przepływu. Symulator liczy WIP, lead time, koszt buforu i przestrzeń magazynową dla obu wariantów.</span></div>
+    </div>
+    <div class="sim-item">
+      <div class="sim-item-dot"></div>
+      <div><strong>Zmniejszenie buforów między stanowiskami</strong><span>Zredukuj bufory o 50% i sprawdź co się stanie z throughput, harmonogramem i kosztem zamrożonego towaru.</span></div>
+    </div>
+    <div class="sim-item">
+      <div class="sim-item-dot"></div>
+      <div><strong>Standaryzacja czasu cyklu</strong><span>Zmniejsz odchylenie standardowe czasu cyklu i obserwuj jak poprawia się schedule adherence i OTIF całego procesu.</span></div>
+    </div>
+    <div class="sim-item">
+      <div class="sim-item-dot"></div>
+      <div><strong>Zmiany layoutu i stref pick/pack</strong><span>Eksperymentuj z rozmieszczeniem stacji roboczych. Symulator wizualizuje przepływ i pokazuje wąskie gardła przed wdrożeniem.</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:28px;padding:18px 20px;background:rgba(11,138,122,.12);border:1px solid rgba(11,138,122,.3);border-radius:var(--r)">
+    <p style="font-size:13px;color:rgba(255,243,230,.7);margin-bottom:4px;font-weight:700">Jak działa system odblokowywania?</p>
+    <p style="font-size:13px;color:rgba(255,243,230,.45);line-height:1.65">Każdy ukończony moduł Akademii odblokuje 1–2 scenariusze symulacji powiązane z jego tematyką. Im więcej wiesz — tym więcej możesz przetestować.</p>
+  </div>
+
+  <div class="sim-notify" style="margin-top:20px">
+    <p>Chcesz dostęp do beta wersji symulatora?</p>
+    <form class="sim-notify-form" onsubmit="handleNotifyGamif(event)">
+      <input type="email" class="sim-email" id="gamif-email" placeholder="Twój e-mail"/>
+      <button type="submit" class="btn btn-teal btn-sm" style="width:100%">Zapisz mnie na beta dostęp →</button>
+    </form>
+  </div>
+</div>
+
+<div class="fi d1">
+  <div class="sim-ui">
+    <div class="sim-ui-bar">
+      <div class="sim-ui-bar-t"><span>⚗️</span> Lab Operacyjny — Symulator</div>
+      <span class="sim-ui-bar-badge">BETA 2026</span>
+    </div>
+    <div class="sim-scenarios">
+
+      <div class="sim-scenario sim-scenario--active">
+        <div class="sim-scenario-head">
+          <span class="sim-scenario-mod">MOD 02</span>
+          <div class="sim-scenario-title">Analiza ABC — wpływ rozmieszczenia na produktywność</div>
+        </div>
+        <div class="sim-scenario-desc">Przesuwasz towary klasy A (20% SKU = 80% picks) do strefy 1. Symulator przelicza dystans, czas i koszt dla Twojego wolumenu.</div>
+        <div class="sim-metrics">
+          <span class="sim-metric sim-metric--up">↑ Produktywność +18%</span>
+          <span class="sim-metric sim-metric--down">↓ Koszt/jedn. −0,12 PLN</span>
+          <span class="sim-metric sim-metric--up">↓ Lead time −22 min</span>
+        </div>
+      </div>
+
+      <div class="sim-scenario sim-scenario--active" style="border-color:rgba(11,138,122,.35);background:rgba(11,138,122,.06)">
+        <div class="sim-scenario-head">
+          <span class="sim-scenario-mod">MOD 01</span>
+          <div class="sim-scenario-title">Standaryzacja czasu cyklu — wpływ na zmienność procesu</div>
+        </div>
+        <div class="sim-scenario-desc">Zmniejszasz odchylenie std. czasu cyklu z 4,2 min do 1,8 min przez wdrożenie SOPów. Symulator liczy wpływ na harmonogram zmiany.</div>
+        <div class="sim-metrics">
+          <span class="sim-metric sim-metric--up">↓ Zmienność −57%</span>
+          <span class="sim-metric sim-metric--up">↑ OTIF +8,5%</span>
+          <span class="sim-metric sim-metric--up">↑ Throughput +11%</span>
+        </div>
+      </div>
+
+      <div class="sim-scenario sim-scenario--locked">
+        <span class="sim-lock-badge">🔒 Odblokuj w Mod. 03</span>
+        <div class="sim-scenario-head">
+          <span class="sim-scenario-mod" style="opacity:.4">MOD 03</span>
+          <div class="sim-scenario-title" style="color:rgba(255,243,230,.4)">One Piece Flow vs. batch — analiza kosztowa</div>
+        </div>
+        <div class="sim-scenario-desc">Porównaj dwa modele przepływu — symulator liczy WIP, lead time i koszt buforu dla obu wariantów.</div>
+        <div class="sim-metrics">
+          <span class="sim-metric" style="color:rgba(255,243,230,.25)">↓ WIP −60%</span>
+          <span class="sim-metric" style="color:rgba(255,243,230,.25)">↓ Lead time −45%</span>
+        </div>
+      </div>
+
+      <div class="sim-scenario sim-scenario--locked">
+        <span class="sim-lock-badge">🔒 Odblokuj w Mod. 05</span>
+        <div class="sim-scenario-head">
+          <span class="sim-scenario-mod" style="opacity:.4">MOD 05</span>
+          <div class="sim-scenario-title" style="color:rgba(255,243,230,.4)">Redukcja buforów — wpływ na throughput i przestrzeń</div>
+        </div>
+        <div class="sim-scenario-desc">Zmniejszasz bufory o 50%. Symulator liczy nową przepustowość, oszczędność m² i wpływ na koszty zapasów WIP.</div>
+        <div class="sim-metrics">
+          <span class="sim-metric" style="color:rgba(255,243,230,.25)">↑ Throughput +12%</span>
+          <span class="sim-metric" style="color:rgba(255,243,230,.25)">↓ Przestrzeń −30%</span>
+        </div>
+      </div>
+
+      <div class="sim-scenario sim-scenario--locked">
+        <span class="sim-lock-badge">🔒 Odblokuj w Mod. 04</span>
+        <div class="sim-scenario-head">
+          <span class="sim-scenario-mod" style="opacity:.4">MOD 04</span>
+          <div class="sim-scenario-title" style="color:rgba(255,243,230,.4)">Inwestycja w automatyzację — analiza ROI w czasie</div>
+        </div>
+        <div class="sim-scenario-desc">Wpisujesz parametry inwestycji — symulator generuje krzywą ROI i pokazuje wpływ na koszt/jedn. przez 5 lat.</div>
+        <div class="sim-metrics">
+          <span class="sim-metric" style="color:rgba(255,243,230,.25)">↓ Koszt/jedn. −22%</span>
+          <span class="sim-metric" style="color:rgba(255,243,230,.25)">Payback 18 mies.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="margin-top:16px;padding:14px 16px;background:rgba(255,243,230,.04);border:1px solid rgba(255,243,230,.08);border-radius:var(--r);font-size:12px;color:rgba(255,243,230,.4);text-align:center;line-height:1.6">
+    Pełna wersja Lab Operacyjnego będzie dostępna dla subskrybentów planu Rocznego i Lifetime.<br/>
+    <button class="btn btn-teal btn-sm" style="margin-top:10px" data-tab="pricing">Zobacz plany →</button>
+  </div>
+</div>
+```
+
+  </div>
+
+</div>
+</section>
+</main>
+
 <!-- FOOTER -->
 
 <footer class="footer">
@@ -980,6 +1313,18 @@ function calc() {
   document.getElementById('r8').textContent = f(ratePU * vol, 0);
 }
 setTimeout(calc, 100);
+
+function handleNotifyGamif(e) {
+  e.preventDefault();
+  const input = document.getElementById('gamif-email');
+  const btn = e.target.querySelector('button');
+  if (!input.value) return;
+  btn.textContent = '✓ Zapisano! Damy znać.';
+  btn.style.background = '#1A5C38';
+  input.value = '';
+  input.disabled = true;
+  setTimeout(() => { btn.textContent = 'Powiadom mnie o premierze'; btn.style.background = ''; input.disabled = false; }, 5000);
+}
 </script>
 
 </body>
